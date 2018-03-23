@@ -1,3 +1,40 @@
 * {
   box-sizing: border-box;
 }
+
+body {
+  background-color: #333333;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 30%;
+}
+
+.container {
+  margin: 0 auto;
+  text-align: center;
+}
+
+input {
+  height: 32px;
+  width: 400px;
+  background-color: #262626;
+  border: 3px solid #262626;
+  border-radius: 3px;
+  color: #cccccc;
+  margin-bottom: 30px;
+}
+
+.results {
+  text-align: left;
+  width: 50%;
+  margin: 0 auto;
+}
+
+li {
+  list-style-type: none;
+  border-bottom: 2px solid #cccccc;
+  padding-top: 10px;
+  font-size: 16px;
+}

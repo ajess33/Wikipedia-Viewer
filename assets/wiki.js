@@ -1,29 +1,39 @@
 // Without JQuery and implementing ES6 for the first time
+// Still don't really understand const/let enough to use it
+
+// Still need to break fetchData function up
+// Styling!!!
 
 var searchbar = document.querySelector('#searchbar');
 var searchButton = document.querySelector('#search');
 var results = document.querySelector('.results');
 
-var userInput = searchbar.value;
-
 function fetchData() {
+  var userInput = searchbar.value;
+  results.innerHTML = '';
   fetch(
     'https://en.wikipedia.org/w/api.php?action=query&format=json&generator=search&gsrlimit=10&prop=extracts&exintro&extlinks&explaintext&exsentences=2&exlimit=max&gsrsearch=' +
       userInput
   )
     .then(response => response.json())
     .then(jsonData => {
-      var myData = jsonData;
-      console.log(myData);
+      var myData = jsonData.query.pages;
+
       for (result in myData) {
-        console.log(result);
+        let { pageid, title, extract } = myData[result];
+        var url = 'https://en.wikipedia.org/wiki?curid' + pageid;
+        var resultHtml = `<a target="_blank" href="${url}">${title}</a>
+                            <li>${extract}</li>
+                      `;
+        results.innerHTML += resultHtml;
       }
+      console.log(myData);
     });
 }
 
-fetchData();
-
-// fetch(
-//   'https://en.wikipedia.org/w/api.php?action=query&format=json&generator=search&gsrlimit=10&prop=extract&pilimit=max&exintro&explaintext&exsentences=1&exlimit=max&gsrsearch=' +
-//     userInput
-// )
+searchButton.addEventListener('click', event => {
+  // prevent page from loading
+  event.preventDefault();
+  results.innerHTML = '';
+  fetchData();
+});
